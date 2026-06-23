@@ -1,8 +1,7 @@
 package com.movieProject.movie_management.controller;
 
 import com.movieProject.movie_management.entity.Movie;
-import com.movieProject.movie_management.service.MovieService;
-import org.apache.coyote.Response;
+import com.movieProject.movie_management.service.MovieServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,17 +14,17 @@ import java.util.List;
 public class MovieController {
 
     @Autowired
-    MovieService movieService;
+    MovieServiceImpl movieServiceImpl;
 
     @GetMapping
     public ResponseEntity<List<Movie>> getAllMovies(){
-        return ResponseEntity.ok(movieService.getAllMovies()) ;
+        return ResponseEntity.ok(movieServiceImpl.findAllMovies()) ;
 
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getMovieById(@PathVariable Integer id){
-        Movie getMovie= movieService.getMovieById(id);
+        Movie getMovie= movieServiceImpl.findById(id);
         if(getMovie==null){
             return ResponseEntity.status(404).body("Movie not found");
         }
@@ -33,14 +32,13 @@ public class MovieController {
     }
 
     @PostMapping()
-
     public ResponseEntity<Movie> addMovie(@RequestBody Movie movie){
-        return ResponseEntity.status(201).body(movieService.addMovie(movie));
+        return ResponseEntity.status(201).body(movieServiceImpl.save(movie));
     }
 
     @PutMapping()
     public ResponseEntity<Object> updateMovie( @RequestBody Movie movie){
-        Movie getMovie= movieService.updateMovie(movie);
+        Movie getMovie= movieServiceImpl.updatingMovie(movie.getId(),movie);
         if(getMovie==null){
             return ResponseEntity.status(404).body("Movie not found");
         }
@@ -49,7 +47,7 @@ public class MovieController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMovie(@PathVariable Integer id){
-        String result= movieService.deleteMovie(id);
+        String result= movieServiceImpl.deleteById(id);
 
         if(result.equals("Movie not found in the list ")){
             return ResponseEntity.status(404).body(result);

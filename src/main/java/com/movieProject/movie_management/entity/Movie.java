@@ -1,17 +1,32 @@
 package com.movieProject.movie_management.entity;
 
-public class Movie {
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "movies")
+public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Integer id;
+
+    @Column(nullable = false,length = 30)
     private  String title;
+
+    @Column(nullable = false,length = 30)
     private  String genre;
+
+    @Column(nullable = false,length = 30)
     private  Double rating;
-    private int year;
+
+    @Column
+    private String year;
 
     //default constructor
-    Movie(){}
+    Movie(){
+
+    }
     //parameterized constructor
-    public Movie(Integer id, String title, String genre, Double rating, Integer year) {
+    public Movie(Integer id, String title, String genre, Double rating, String year) {
         this.id = id;
         this.title = title;
         this.genre = genre;
@@ -32,7 +47,7 @@ public class Movie {
     public void setRating(Double rating) {
         this.rating = rating;
     }
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
 
@@ -49,7 +64,7 @@ public class Movie {
     public Double getRating() {
         return rating;
     }
-    public Integer getYear() {
+    public String getYear() {
         return year;
     }
 }
