@@ -1,5 +1,7 @@
 package com.movieProject.movie_management.service;
 
+import com.movieProject.movie_management.dto.MovieRequestDTO;
+import com.movieProject.movie_management.dto.MovieResponseDTO;
 import com.movieProject.movie_management.entity.Movie;
 import com.movieProject.movie_management.exception.MovieNotFound;
 import com.movieProject.movie_management.repository.MovieRepo;
@@ -17,28 +19,28 @@ public class MovieServiceImpl implements MovieService {
 
 
     @Override
-    public Movie save(Movie movie) {
-        return movieRepo.save(movie);
+    public MovieResponseDTO save(MovieRequestDTO movieRequestDTO) {
+        return movieRepo.save( movieRequestDTO);
     }
 
     @Override
-    public List<Movie> findAllMovies() {
+    public List<MovieResponseDTO> findAllMovies() {
         return movieRepo.findAll();
     }
 
     @Override
-    public Movie findById(Integer id) {
+    public MovieResponseDTO findById(Integer id) {
         return movieRepo.findById(id).orElseThrow(() -> new MovieNotFound("Movie not found by id : " + id));
     }
 
     @Override
-    public Movie updatingMovie(Integer id, Movie movie) {
+    public MovieResponseDTO updatingMovie(Integer id, MovieRequestDTO movieRequestDTO) {
         Movie existingMovie = movieRepo.findById(id).orElseThrow(() -> new MovieNotFound("Movie not found by id : " + id));
-        existingMovie.setId(movie.getId());
-        existingMovie.setTitle(movie.getTitle());
-        existingMovie.setGenre(movie.getGenre());
-        existingMovie.setYear(movie.getYear());
-        existingMovie.setRating(movie.getRating());
+        existingMovie.setId( movieRequestDTO.getId());
+        existingMovie.setTitle(movieRequestDTO.getTitle());
+        existingMovie.setGenre(movieRequestDTO.getGenre());
+        existingMovie.setYear(movieRequestDTO.getYear());
+        existingMovie.setRating(movieRequestDTO.getRating());
         return existingMovie;
     }
 
