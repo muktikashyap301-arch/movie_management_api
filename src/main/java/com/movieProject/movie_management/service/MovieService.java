@@ -1,14 +1,15 @@
 package com.movieProject.movie_management.service;
 
-import com.movieProject.movie_management.entity.Movie;
+import com.movieProject.movie_management.dto.MovieRequestDTO;
+import com.movieProject.movie_management.dto.MovieResponseDTO;
 
 import java.util.List;
 
 public interface MovieService {
 
-    Movie save(Movie movie);
-    List<Movie> findAllMovies();
-    Movie findById(Integer id);
-    Movie updatingMovie(Integer id,Movie movie);
+    MovieResponseDTO save(MovieRequestDTO movieRequestDTO);
+    List<MovieResponseDTO> findAllMovies();
+    MovieResponseDTO findById(Integer id);
+    MovieResponseDTO updatingMovie(Integer id,MovieRequestDTO movieRequestDTO);
     String deleteById(Integer id);
 }

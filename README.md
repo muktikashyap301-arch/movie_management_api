@@ -41,12 +41,9 @@ src
 
 ## Future Improvements
 
-- DTO Layer
-- Validation
-- Global Exception Handling
 - Swagger Documentation
 - JWT Authentication
 
 ## Author
-
 Mukti Kashyap
+
